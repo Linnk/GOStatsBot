@@ -1,0 +1,17 @@
+{
+  "name": "csgo.bot",
+  "version": "1.0.0",
+  "description": "CSGO bot for getting stats and cyka blyat.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ignacio Benavides",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^3.0.1",
+    "hltv": "^2.2.3",
+    "pad": "^1.1.0",
+    "telegraf": "^3.11.1"
+  }
+}
