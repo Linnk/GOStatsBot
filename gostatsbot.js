@@ -97,7 +97,7 @@ bot.action(/^\/stats (\d+)$/, (ctx) => {
 	var match_id = parseInt(ctx.match[1])
 	if (isNaN(match_id))
 	{
-		ctx.answerCallbackQuery(`Something is wrong: ${ctx.match[0]}`)
+		return ctx.answerCallbackQuery(`Something is wrong: ${ctx.match[0]}`)
 	}
 	if (last_stats_searched === match_id)
 	{
