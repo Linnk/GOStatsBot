@@ -22,6 +22,7 @@ bot.command('start', ({ from, reply }) => {
 })
 
 var last_team_searched = null
+var last_team_founded = null
 
 bot.command('/go', (ctx) => {
 	var team_search = ctx.message.text.replace('/go ', '').toLowerCase()
@@ -29,13 +30,20 @@ bot.command('/go', (ctx) => {
 	var end_date = new Date().toISOString().slice(0, 10)
 	var start_date = new Date(new Date() - (3 * 24 * 60 * 60 * 1000)).toISOString().slice(0, 10)
 
-	if (last_team_searched === team_search)
+	if (last_team_searched === team_search && !last_team_founded)
 	{
-		return ctx.reply('Lo estoy buscando o lo acabo de publicar.')
+		return ctx.reply('Ya lo estoy buscando.')
+	}
+	if (last_team_searched === team_search && last_team_founded)
+	{
+		return ctx.reply('Lo acabo de publicar. 😒')
 	}
 	last_team_searched = team_search
 
 	debug('Searching “%s” from %s to %s', team_search, start_date, end_date)
+	ctx.reply('Ok. Estoy buscando matches de %s en los últimos 3 días.', team_search.toUpperCase())
+
+	last_team_founded = false
 
 	HLTV.getMatchesStats({startDate: start_date, endDate: end_date}).then(matches => {
 		var matches_found = false
@@ -66,7 +74,11 @@ bot.command('/go', (ctx) => {
 			}
 		}
 
-		if (!matches_found)
+		if (matches_found)
+		{
+			last_team_founded = true
+		}
+		else
 		{
 			debug('%O', matches)
 
