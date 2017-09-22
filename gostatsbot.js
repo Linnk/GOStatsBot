@@ -41,7 +41,7 @@ bot.command('/go', (ctx) => {
 	last_team_searched = team_search
 
 	debug('Searching “%s” from %s to %s', team_search, start_date, end_date)
-	ctx.reply('Ok. Estoy buscando matches de %s en los últimos 3 días.', team_search.toUpperCase())
+	ctx.reply('Ok. Estoy buscando matches de ' + team_search.toUpperCase() + ' en los últimos 3 días.')
 
 	last_team_founded = false
 
@@ -80,6 +80,8 @@ bot.command('/go', (ctx) => {
 		}
 		else
 		{
+			last_team_searched = null
+
 			debug('%O', matches)
 
 			ctx.reply(team_search.toUpperCase() + ' no ha jugado recientemente.')
